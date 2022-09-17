@@ -1,6 +1,7 @@
 import "./SignuUp.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 const SignUp = () => {
 	const [form, setForm] = useState({
@@ -26,47 +27,57 @@ const SignUp = () => {
 		}
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const { username, email, password, repeatPassword } = form;
+		axios.post("/api/1.0/users", { username, email, password, repeatPassword });
+	};
+
 	useEffect(() => {
 		enableButton();
 	}, [form.password, form.repeatPassword]);
 
 	return (
-		<div className="form-container">
-			<h3>Sign Up</h3>
-			<label htmlFor="username">User name</label>
-			<input
-				type="text"
-				id="username"
-				value={form.username}
-				name="username"
-				onChange={handleChange}
-			/>
-			<label htmlFor="email">email</label>
-			<input
-				type="text"
-				id="email"
-				value={form.email}
-				name="email"
-				onChange={handleChange}
-			/>
-			<label htmlFor="password">password</label>
-			<input
-				type="password"
-				id="password"
-				name="password"
-				onChange={handleChange}
-				value={form.password}
-			/>
-			<label htmlFor="repeat password">repeat password</label>
-			<input
-				type="password"
-				id="repeat password"
-				name="repeatPassword"
-				value={form.repeatPassword}
-				onChange={handleChange}
-			/>
-			<button disabled={disable}>Sign Up</button>
-		</div>
+		<form>
+			<div className="form-container">
+				<h3>Sign Up</h3>
+				<label htmlFor="username">User name</label>
+				<input
+					type="text"
+					id="username"
+					value={form.username}
+					name="username"
+					onChange={handleChange}
+				/>
+				<label htmlFor="email">email</label>
+				<input
+					type="text"
+					id="email"
+					value={form.email}
+					name="email"
+					onChange={handleChange}
+				/>
+				<label htmlFor="password">password</label>
+				<input
+					type="password"
+					id="password"
+					name="password"
+					onChange={handleChange}
+					value={form.password}
+				/>
+				<label htmlFor="repeat password">repeat password</label>
+				<input
+					type="password"
+					id="repeat password"
+					name="repeatPassword"
+					value={form.repeatPassword}
+					onChange={handleChange}
+				/>
+				<button onClick={handleSubmit} disabled={disable}>
+					Sign Up
+				</button>
+			</div>
+		</form>
 	);
 };
 
