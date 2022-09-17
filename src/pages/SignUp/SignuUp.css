@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+}
+
+body {
+  background: rgb(144, 84, 74);
+}
+
+.form-container {
+  display: flex;
+  padding: 0.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
+
+}

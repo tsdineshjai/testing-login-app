@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import SignUp from "../SignUp";
+import userEvent from "@testing-library/user-event";
 
 describe("SignUp", () => {
 	describe("layout", () => {
@@ -32,12 +33,29 @@ describe("SignUp", () => {
 			expect(screen.getByLabelText("repeat password")).toBeInTheDocument();
 		});
 
-		it("checking for a sign up button and disabled property", () => {
+		it("checking the prescene of sign up button", () => {
 			render(<SignUp />);
 			const button = screen.getByRole("button", { name: "Sign Up" });
 			expect(button).toBeInTheDocument();
-			expect(button).toBeDisabled();
 			expect(button.innerHTML).toBe("Sign Up");
+			expect(button).toBeDisabled();
 		});
+	});
+});
+
+describe("interaction with the form", () => {
+	it("button gets enabled when password and password repeat are same", async () => {
+		render(<SignUp />);
+
+		const passwordInput = screen.getByLabelText("password");
+		const passwordRepeatInput = screen.getByLabelText("repeat password");
+		userEvent.type(passwordInput, "123");
+		userEvent.type(passwordRepeatInput, "123");
+		const passwordInputValue = await screen.findByLabelText("password");
+		const passwordRepeatInputValue = await screen.findByLabelText(
+			"repeat password"
+		);
+		expect(passwordInputValue.value).toBe(passwordRepeatInputValue.value);
+		expect(screen.getByRole("button", { name: "Sign Up" })).toBeEnabled();
 	});
 });
