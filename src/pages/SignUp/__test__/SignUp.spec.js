@@ -27,11 +27,17 @@ describe("SignUp", () => {
 			expect(screen.getByLabelText("password").type).toBe("password");
 		});
 
-    it("checking for a password repeat", () => {
-      render(<SignUp />);
-      expect(screen.getByLabelText("repeat password")).toBeInTheDocument();
-    })
+		it("checking for a password repeat", () => {
+			render(<SignUp />);
+			expect(screen.getByLabelText("repeat password")).toBeInTheDocument();
+		});
 
-    
+		it("checking for a sign up button and disabled property", () => {
+			render(<SignUp />);
+			const button = screen.getByRole("button", { name: "Sign Up" });
+			expect(button).toBeInTheDocument();
+			expect(button).toBeDisabled();
+			expect(button.innerHTML).toBe("Sign Up");
+		});
 	});
 });

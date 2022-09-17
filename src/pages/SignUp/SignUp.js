@@ -8,6 +8,9 @@ const SignUp = () => {
 			<input type="text" id="email" />
 			<label htmlFor="password">password</label>
 			<input type="password" id="password" />
+			<label htmlFor="repeat password">repeat password</label>
+			<input type="password" id="repeat password" />
+			<button disabled>Sign Up</button>
 		</div>
 	);
 };
